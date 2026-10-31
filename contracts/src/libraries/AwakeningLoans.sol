@@ -163,7 +163,6 @@ contract AwakeningLoans {
         require(offer.maker != taker, IAwakening.SelfTake());
         require(_isAuthorized(offer.maker, offer.ratifier), IAwakening.RatifierUnauthorized());
         require(IRatifier(offer.ratifier).isRatified(offer, ratifierData) == CALLBACK_SUCCESS, IAwakening.RatifierFail());
-        // A two-step take always opens a new loan, so it cannot satisfy a reduce-only offer.
         require(!offer.reduceOnly, IAwakening.MakerCreditOrDebtIncreased());
 
         uint256 offerPrice = TickLib.tickToPrice(offer.tick);
